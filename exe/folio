@@ -20,11 +20,15 @@ end
 # That preserves $LOAD_PATH, allowing us to mess with it ahead of time.
 
 # Find the scarpe executable
-scarpe_exe = ENV["PATH"].split(":").detect { |d| File.exist?("#{d}/scarpe") }
-
-unless scarpe_exe
+scarpe_dir = ENV["PATH"].split(":").detect { |d| File.exist?("#{d}/scarpe") }
+if scarpe_dir
+  scarpe_exe = "#{scarpe_dir}/scarpe"
+else
   scarpe_exe = "#{__dir__}/../../scarpe/exe/scarpe"
   raise("Couldn't find scarpe executable in $PATH or local development directory!")
 end
 
 load scarpe_exe # just pass ARGV and $LOAD_PATH through unchanged
+if ARGV.include?("-v")
+  puts "Scarpe-Folio #{Scarpe::Folio::VERSION}"
+end
