@@ -1,0 +1,30 @@
+#!/usr/bin/env ruby
+
+# We need to not use syntactic features of very recent Rubies in this file, so that it parses
+# correctly in earlier Rubies and can successfully give the version-check error.
+if RUBY_VERSION[0..2] < "3.2"
+  STDERR.puts("Scarpe-Folio requires Ruby 3.2 or higher!")
+  exit(-1)
+end
+
+ENV["SCARPE_DISPLAY_SERVICE"] = "folio"
+
+# Make sure local scarpe-folio is loaded preferentially before any installed scarpe-folio.
+# Don't remove --dev if present since scarpe is also going to prepend *itself* to $LOAD_PATH.
+if ARGV.include?("--dev")
+  dev_path = File.expand_path("../lib", __dir__)
+  $LOAD_PATH.prepend dev_path
+end
+
+# Instead of shelling out, we're going to just load Scarpe's "exe/scarpe" in Ruby.
+# That preserves $LOAD_PATH, allowing us to mess with it ahead of time.
+
+# Find the scarpe executable
+scarpe_exe = ENV["PATH"].split(":").detect { |d| File.exist?("#{d}/scarpe") }
+
+unless scarpe_exe
+  scarpe_exe = "#{__dir__}/../../scarpe/exe/scarpe"
+  raise("Couldn't find scarpe executable in $PATH or local development directory!")
+end
+
+load scarpe_exe # just pass ARGV and $LOAD_PATH through unchanged
