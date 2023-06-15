@@ -3,6 +3,7 @@
 module Scarpe::Folio
   class App < Widget
     attr_reader :debug
+    attr_reader :window
     attr_writer :shoes_linkable_id
     attr_writer :document_root
 
@@ -15,20 +16,27 @@ module Scarpe::Folio
     end
 
     def init
+      gui.init
+
+      @window = gui.new_window(@title, @height, @width, 1)
+
+      # Is this called before child widgets are added? Can't remember.
+      @document_root.ui_init
     end
 
     def run
-      STDERR.puts "Need an event loop, not just a stand-in."
+      gui.control_show(@window)
+      gui.main
+      # Once we get here we need to shut down the Shoes-side app, but that's
+      # not set up right yet.
       exit 0
-
-      # Wait for incoming events from background threads, if any
-      until @do_shutdown
-        sleep 0.1
-      end
     end
 
     def destroy
       @do_shutdown = true
+      #@document_root.ui_destroy_all
+      gui.control_destroy(@window)
+      gui.quit
     end
   end
 end

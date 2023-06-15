@@ -1,7 +1,10 @@
 # frozen_string_literal: true
 
+require "libui"
+
 require_relative "folio/version"
 require "scarpe"
+require "scarpe/folio/gui"
 require "scarpe/folio/widget"
 require "scarpe/folio/document_root"
 require "scarpe/folio/app"

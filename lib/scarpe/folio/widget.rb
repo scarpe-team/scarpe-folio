@@ -77,6 +77,20 @@ module Scarpe::Folio
 
     protected
 
+    def gui
+      @gui ||= GUI.instance
+    end
+
+    def ui_create
+      ui_init if respond_to?(:ui_init)
+      @children.each(&:ui_create)
+    end
+
+    def ui_destroy_all
+      @children.each(&:ui_destroy)
+      ui_destroy
+    end
+
     # Do not call directly, use set_parent
     def remove_child(child)
       @children ||= []

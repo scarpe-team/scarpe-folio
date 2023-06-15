@@ -29,8 +29,12 @@ module Scarpe::Folio
 
         display_app = Scarpe::Folio::App.new(properties)
         display_app.document_root = @doc_root
+        @doc_root.app = display_app
 
         set_widget_pairing(widget_id, display_app)
+
+        # For now just pass in app properties
+        gui = GUI.create_instance(properties)
 
         return display_app
       end
