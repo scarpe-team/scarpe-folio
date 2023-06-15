@@ -5,6 +5,8 @@ require "scarpe"
 require "scarpe/folio/widget"
 require "scarpe/folio/document_root"
 require "scarpe/folio/app"
+require "scarpe/folio/button"
+require "scarpe/folio/alert"
 require "scarpe/folio/local_display"
 
 module Scarpe::Folio
