@@ -15,17 +15,17 @@ module Scarpe::Folio
       bind_display_event(event_name: "destroy") { destroy }
     end
 
+    # When init is called, child widgets have not yet been added
     def init
       gui.init
-
       @window = gui.new_window(@title, @height, @width, 1)
-
-      # Is this called before child widgets are added? Can't remember.
-      @document_root.ui_init
     end
 
     def run
+      # Child widgets have been added, so initialize them
+      @document_root.ui_init
       gui.control_show(@window)
+
       gui.main
       # Once we get here we need to shut down the Shoes-side app, but that's
       # not set up right yet.

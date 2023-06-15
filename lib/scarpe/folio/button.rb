@@ -8,6 +8,9 @@ module Scarpe::Folio
 
     def ui_init
       @button = gui.new_button(@text)
+      gui.button_on_clicked(@button) do
+        send_display_event(event_name: "click", target: shoes_linkable_id)
+      end
       gui.box_append(@parent.ui_widget, @button, 0)
     end
 

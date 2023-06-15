@@ -23,7 +23,6 @@ module Scarpe::Folio
 
     attr_reader :shoes_linkable_id
     attr_reader :parent
-    attr_reader :children
 
     def initialize(properties)
       log_init("Folio::Widget")
@@ -73,6 +72,10 @@ module Scarpe::Folio
       @parent&.remove_child(self)
       new_parent&.add_child(self)
       @parent = new_parent
+    end
+
+    def children
+      @children ||= []
     end
 
     protected

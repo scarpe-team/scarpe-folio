@@ -16,13 +16,16 @@ module Scarpe::Folio
       window = @app.window
 
       @vbox = gui.new_vertical_box
-      gui.window_set_child(window, @vbox)
 
       gui.window_on_closing(window) do
         puts "Window was closed..."
         @app.destroy
         0
       end
+
+      children.each(&:ui_init)
+
+      gui.window_set_child(window, @vbox)
     end
 
     # Widget to add children to
