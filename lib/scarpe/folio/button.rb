@@ -12,6 +12,8 @@ module Scarpe::Folio
         send_display_event(event_name: "click", target: shoes_linkable_id)
       end
       gui.box_append(@parent.ui_widget, @button, 0)
+
+      super
     end
 
     def ui_destroy

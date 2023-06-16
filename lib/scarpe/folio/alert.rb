@@ -8,6 +8,8 @@ module Scarpe::Folio
 
     def ui_init
       gui.msg_box(app.window, "Message Box", @text)
+
+      super
     end
   end
 end

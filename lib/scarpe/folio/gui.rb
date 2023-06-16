@@ -4,6 +4,11 @@
 # We'd like to be able to manage API calls, track allocated objects, etc.
 # Here's where we'll do that.
 
+# TODO: would be really good to track created windows and widgets.
+# Destruction-tracking would be really good to avoid leaks. Might
+# even need handler tracking or similar to make sure we have refs
+# to all appropriate stuff.
+
 module Scarpe::Folio
   class GUI
     def GUI.create_instance(properties)

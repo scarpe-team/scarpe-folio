@@ -27,6 +27,8 @@ module Scarpe::Folio
     def initialize(properties)
       log_init("Folio::Widget")
 
+      @initialized = false # Haven't yet called ui_init
+
       # Call method, which looks up the parent
       @shoes_linkable_id = properties["shoes_linkable_id"] || properties[:shoes_linkable_id]
       unless @shoes_linkable_id
@@ -65,13 +67,13 @@ module Scarpe::Folio
 
     # This exists to be overridden by children watching for changes
     def properties_changed(changes)
-      needs_update! unless changes.empty?
+      raise("Don't know how to handle property changes: #{changes.inspect}") unless changes.empty?
     end
 
     def set_parent(new_parent)
+      @parent = new_parent
       @parent&.remove_child(self)
       new_parent&.add_child(self)
-      @parent = new_parent
     end
 
     def children
@@ -80,17 +82,27 @@ module Scarpe::Folio
 
     protected
 
+    # By default, use @window if set or ask our parent for
+    # their window. The document root has a window set.
+    def window
+      @window || @parent.window
+    end
+
+    def app
+      @app || @parent.app
+    end
+
     def gui
       @gui ||= GUI.instance
     end
 
-    def ui_create
-      ui_init if respond_to?(:ui_init)
-      @children.each(&:ui_create)
+    def ui_init
+      @initialized = true
+      children.each(&:ui_init)
     end
 
     def ui_destroy_all
-      @children.each(&:ui_destroy)
+      children.each(&:ui_destroy)
       ui_destroy
     end
 
@@ -109,8 +121,9 @@ module Scarpe::Folio
       @children ||= []
       @children << child
 
-      # If we add a child, we should redraw ourselves
-      needs_update!
+      if @initialized
+        child.ui_init
+      end
     end
 
     # How do we do update for LibUI? *Do* we?

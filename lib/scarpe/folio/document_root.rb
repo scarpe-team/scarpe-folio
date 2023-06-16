@@ -3,6 +3,7 @@
 module Scarpe::Folio
   class DocumentRoot < Widget
     attr_writer :app
+    attr_reader :window
 
     def initialize(properties)
       @callbacks = {}
@@ -26,6 +27,8 @@ module Scarpe::Folio
       children.each(&:ui_init)
 
       gui.window_set_child(window, @vbox)
+
+      super
     end
 
     # Widget to add children to
