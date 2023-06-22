@@ -34,7 +34,7 @@ module Scarpe::Folio
         set_widget_pairing(widget_id, display_app)
 
         # For now just pass in app properties
-        gui = GUI.create_instance(properties)
+        GUI.create_instance(properties)
 
         return display_app
       end

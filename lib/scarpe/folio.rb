@@ -3,7 +3,12 @@
 require "libui"
 
 require_relative "folio/version"
-require "scarpe"
+
+# Scarpe can require us... But if it doesn't, we should first require scarpe.
+unless defined?(Scarpe::VERSION)
+  require "scarpe"
+end
+
 require "scarpe/folio/gui"
 require "scarpe/folio/widget"
 require "scarpe/folio/document_root"

@@ -10,9 +10,9 @@ module Scarpe::Folio
     def initialize(properties)
       super
 
-      bind_display_event(event_name: "init") { init }
-      bind_display_event(event_name: "run") { run }
-      bind_display_event(event_name: "destroy") { destroy }
+      bind_shoes_event(event_name: "init") { init }
+      bind_shoes_event(event_name: "run") { run }
+      bind_shoes_event(event_name: "destroy") { destroy }
     end
 
     # When init is called, child widgets have not yet been added
