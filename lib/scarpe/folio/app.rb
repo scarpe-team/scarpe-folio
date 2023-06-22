@@ -27,9 +27,8 @@ module Scarpe::Folio
       gui.control_show(@window)
 
       gui.main
-      # Once we get here we need to shut down the Shoes-side app, but that's
-      # not set up right yet.
-      exit 0
+
+      send_shoes_event(event_name: "destroy")
     end
 
     def destroy
