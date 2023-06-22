@@ -23,6 +23,7 @@ module Scarpe::Folio
 
     attr_reader :shoes_linkable_id
     attr_reader :parent
+    attr_reader :initialized
 
     def initialize(properties)
       log_init("Folio::Widget")
@@ -97,13 +98,19 @@ module Scarpe::Folio
     end
 
     def ui_init
+      return if @initialized
       @initialized = true
-      children.each(&:ui_init)
+      children.each do |child|
+        child.ui_init unless child.initialized
+      end
     end
 
     def ui_destroy_all
-      children.each(&:ui_destroy)
-      ui_destroy
+      # TODO: uncomment
+      #children.each do |child|
+      #  child.ui_destroy if child.initialized
+      #end
+      #ui_destroy
     end
 
     # Do not call directly, use set_parent

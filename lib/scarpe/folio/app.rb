@@ -34,7 +34,8 @@ module Scarpe::Folio
     def destroy
       @do_shutdown = true
       #@document_root.ui_destroy_all
-      gui.control_destroy(@window)
+      gui.control_destroy(@window) if @window
+      @window = nil
       gui.quit
     end
   end

@@ -18,12 +18,24 @@ module Scarpe::Folio
       if properties["debug"]
         ui = Scarpe::LoggedWrapper.new(ui, "LibUI")
       end
-      @gui = ui
+      @gui = GUI.new(ui)
     end
 
     def GUI.instance
       raise("No instance created!") unless @gui
       @gui
     end
+
+    def initialize(libui)
+      @libui = libui
+    end
+
+    def method_missing(name, *args, **kwargs, &block)
+      $stderr.puts "Calling: #{name.inspect} A: #{args.inspect} KW: #{kwargs.inspect} b: #{block ? "y" : "n"}"
+      @libui.send(name, *args, **kwargs, &block)
+    end
   end
 end
+
+# TODO: hide the LibUI object internally, don't return it. Have a GUI object that can allocate
+# widgets and track them, but don't hand out the internal LibUI object.

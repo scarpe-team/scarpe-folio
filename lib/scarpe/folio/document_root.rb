@@ -37,7 +37,7 @@ module Scarpe::Folio
     end
 
     def ui_destroy
-      gui.control_destroy(@app.window) if @app.window
+      #gui.control_destroy(@app.window) if @app.window
     end
   end
 end
