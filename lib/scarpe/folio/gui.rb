@@ -37,5 +37,22 @@ module Scarpe::Folio
   end
 end
 
-# TODO: hide the LibUI object internally, don't return it. Have a GUI object that can allocate
-# widgets and track them, but don't hand out the internal LibUI object.
+# Over time, this should grow into a more comprehensive wrapper around kojix2/libui, which is meant to
+# be wrapped, not used directly.
+
+# References:
+
+# Examples for libui-ng underlying C lib: https://github.com/libui-ng/libui-ng/tree/master/examples
+
+# LibUI FFI code: https://github.com/kojix2/LibUI/blob/main/lib/libui/ffi.rb
+# libui-ng's ui.h header: https://github.com/libui-ng/libui-ng/blob/master/ui.h
+# AndLabs' Go package documentation: https://pkg.go.dev/github.com/andlabs/ui
+
+# Glimmer has a LibUI wrapper which can sometimes be helpful to reference: https://github.com/AndyObtiva/glimmer-dsl-libui/blob/master/README.md
+
+# There's some weirdness with the available event-loop functions, such as uiMainStep and uiMainSteps, which
+# may explain why Go doesn't wrap them... I suspect we'll want a remote/relay display service for libui just
+# like we do for Webview, for roughly the same reasons.
+#
+# * https://github.com/andlabs/libui/issues/95
+# * https://github.com/andlabs/libui/issues/125
