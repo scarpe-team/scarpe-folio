@@ -1,20 +1,20 @@
 # frozen_string_literal: true
 
 module Scarpe::Folio
-  class Widget < ::Scarpe::DisplayService::Linkable
-    include Scarpe::Log
+  class Widget < ::Shoes::Linkable
+    include Shoes::Log
 
     class << self
       def display_class_for(scarpe_class_name)
-        scarpe_class = Scarpe.const_get(scarpe_class_name)
-        unless scarpe_class.ancestors.include?(::Scarpe::DisplayService::Linkable)
-          raise "Can only get display classes for Scarpe " +
-            "linkable widgets, not #{scarpe_class_name.inspect}!"
+        shoes_class = Shoes.const_get(scarpe_class_name)
+        unless shoes_class.ancestors.include?(::Shoes::Linkable)
+          raise "Can only get display classes for Shoes " +
+            "linkable widgets, not #{shoes_class_name.inspect}!"
         end
 
-        klass = Scarpe::Folio.const_get(scarpe_class_name.split("::")[-1])
+        klass = Scarpe::Folio.const_get(shoes_class.name.split("::")[-1])
         if klass.nil?
-          raise "Couldn't find corresponding display class for #{scarpe_class_name.inspect}!"
+          raise "Couldn't find corresponding display class for #{shoes_class_name.inspect}!"
         end
 
         klass

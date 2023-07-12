@@ -22,4 +22,4 @@ module Scarpe::Folio
 end
 
 # For now there is only local, no remote
-Scarpe::DisplayService.set_display_service_class(Scarpe::Folio::DisplayService)
+Shoes::DisplayService.set_display_service_class(Scarpe::Folio::DisplayService)

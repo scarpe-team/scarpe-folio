@@ -1,9 +1,12 @@
 PATH
   remote: ../scarpe
   specs:
-    scarpe (0.1.0)
+    lacci (0.2.1)
+    scarpe (0.2.1)
+      bloops (~> 0.5)
       fastimage
       glimmer-dsl-libui
+      lacci
       logging (~> 2.3.1)
       nokogiri
       sqlite3
@@ -20,6 +23,7 @@ GEM
   remote: https://rubygems.org/
   specs:
     array_include_methods (1.4.0)
+    bloops (0.5)
     chunky_png (1.4.0)
     color (1.8)
     equalizer (0.0.11)
